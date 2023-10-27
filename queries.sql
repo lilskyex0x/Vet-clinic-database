@@ -159,7 +159,8 @@ FROM visits v
 WHERE v.vet_id = 2;
 SELECT v.name AS vet_name, s.name AS specialty
 FROM vets v
-LEFT JOIN specializations s ON v.id = s.vet_id;
+LEFT JOIN specializations sp ON v.id = sp.vet_id
+LEFT JOIN species s ON sp.species_id = s.id;
 SELECT a.name AS animal_name
 FROM visits v
 JOIN animals a ON v.animal_id = a.id
