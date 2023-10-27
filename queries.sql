@@ -148,3 +148,53 @@ FROM owners o
 GROUP BY o.full_name
 ORDER BY num_of_animals DESC
 LIMIT 1;
+SELECT a.name AS last_animal_seen
+FROM visits v
+JOIN animals a ON v.animal_id = a.id
+WHERE v.vet_id = 1
+ORDER BY v.visit_date DESC
+LIMIT 1;
+SELECT COUNT(DISTINCT v.animal_id) AS number_of_animals_seen
+FROM visits v
+WHERE v.vet_id = 2;
+SELECT v.name AS vet_name, s.name AS specialty
+FROM vets v
+LEFT JOIN specializations s ON v.id = s.vet_id;
+SELECT a.name AS animal_name
+FROM visits v
+JOIN animals a ON v.animal_id = a.id
+WHERE v.vet_id = 2
+  AND v.visit_date BETWEEN '2020-04-01' AND '2020-08-30';
+SELECT a.name AS animal_name, COUNT(v.visit_id) AS visit_count
+FROM visits v
+JOIN animals a ON v.animal_id = a.id
+GROUP BY a.name
+ORDER BY visit_count DESC
+LIMIT 1;
+SELECT a.name AS first_visit_animal
+FROM visits v
+JOIN animals a ON v.animal_id = a.id
+WHERE v.vet_id = 4
+ORDER BY v.visit_date
+LIMIT 1;
+SELECT a.name AS animal_name, v.name AS vet_name, vst.visit_date
+FROM visits vst
+JOIN animals a ON vst.animal_id = a.id
+JOIN vets v ON vst.vet_id = v.id
+ORDER BY vst.visit_date DESC
+LIMIT 1;
+SELECT COUNT(*) AS num_visits_with_non_specialized_vet
+FROM visits v
+LEFT JOIN specializations s ON v.vet_id = s.vet_id AND v.animal_id = s.species_id
+WHERE s.vet_id IS NULL;
+SELECT s.name AS suggested_specialty
+FROM (
+    SELECT vst.vet_id, a.species_id, COUNT(*) AS visit_count
+    FROM visits vst
+    JOIN animals a ON vst.animal_id = a.id
+    WHERE vst.vet_id = 4 -- Assuming 4 is Maisy Smith's vet ID
+    GROUP BY vst.vet_id, a.species_id
+    ORDER BY visit_count DESC
+    LIMIT 1
+) AS most_visited_species
+JOIN species s ON most_visited_species.species_id = s.id;
