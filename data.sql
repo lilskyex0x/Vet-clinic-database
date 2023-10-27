@@ -158,3 +158,11 @@ VALUES (10, 2, '2020-05-24');
 -- Blossom visited William Tatcher on Jan 11th, 2021.
 INSERT INTO visits (animal_id, vet_id, visit_date)
 VALUES (10, 1, '2021-01-11');
+INSERT INTO vets (name, age, date_of_graduation)
+VALUES ('William Tatcher', 45, '2000-04-23');
+INSERT INTO vets (name, age, date_of_graduation)
+VALUES ('Maisy Smith', 26, '2019-01-17');
+INSERT INTO vets (name, age, date_of_graduation)
+VALUES ('Stephanie Mendez', 64, '1981-05-04');
+INSERT INTO vets (name, age, date_of_graduation)
+VALUES ('Jack Harkness', 38, '2008-06-08');
